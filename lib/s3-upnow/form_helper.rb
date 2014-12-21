@@ -1,4 +1,4 @@
-module S3DirectUpload
+module S3UpNow
   module UploadHelper
     def s3_uploader_form(options = {}, &block)
       uploader = S3Uploader.new(options)
@@ -13,11 +13,11 @@ module S3DirectUpload
       def initialize(options)
         @key_starts_with = options[:key_starts_with] || "uploads/"
         @options = options.reverse_merge(
-          aws_access_key_id: S3DirectUpload.config.access_key_id,
-          aws_secret_access_key: S3DirectUpload.config.secret_access_key,
-          bucket: options[:bucket] || S3DirectUpload.config.bucket,
-          region: S3DirectUpload.config.region || "s3",
-          url: S3DirectUpload.config.url,
+          aws_access_key_id: S3UpNow.config.access_key_id,
+          aws_secret_access_key: S3UpNow.config.secret_access_key,
+          bucket: options[:bucket] || S3UpNow.config.bucket,
+          region: S3UpNow.config.region || "s3",
+          url: S3UpNow.config.url,
           ssl: true,
           acl: "public-read",
           expiration: 10.hours.from_now.utc.iso8601,

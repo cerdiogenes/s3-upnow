@@ -1,6 +1,6 @@
-# S3DirectUpload
+# S3UpNow
 
-[![Build Status](https://travis-ci.org/waynehoover/s3_direct_upload.png)](https://travis-ci.org/waynehoover/s3_direct_upload)
+[![Build Status](https://travis-ci.org/cerdiogenes/s3-upnow.svg)](https://travis-ci.org/cerdiogenes/s3-upnow)
 
 Easily generate a form that allows you to upload directly to Amazon S3.
 Multi file uploading supported by jquery-fileupload.
@@ -10,13 +10,13 @@ Code extracted from Ryan Bates' [gallery-jquery-fileupload](https://github.com/r
 ## Installation
 Add this line to your application's Gemfile:
 
-    gem 's3_direct_upload'
+    gem 's3-upnow'
 
 Then add a new initalizer with your AWS credentials:
 
-**config/initializers/s3_direct_upload.rb**
+**config/initializers/s3-upnow.rb**
 ```ruby
-S3DirectUpload.config do |c|
+S3UpNow.config do |c|
   c.access_key_id = ""       # your access key id
   c.secret_access_key = ""   # your secret access key
   c.bucket = ""              # your bucket name
@@ -44,12 +44,12 @@ Add the following js and css to your asset pipeline:
 
 **application.js.coffee**
 ```coffeescript
-#= require s3_direct_upload
+#= require s3-upnow
 ```
 
 **application.css**
 ```css
-//= require s3_direct_upload_progress_bars
+//= require s3-upnow_progress_bars
 ```
 
 ## Usage
@@ -128,15 +128,15 @@ So that javascript code would be executed after the model instance is created, w
 Note: the POST request to the rails app also includes the following parameters `filesize`, `filetype`, `filename` and `filepath`.
 
 ### Advanced Customizations
-Feel free to override the styling for the progress bars in s3_direct_upload_progress_bars.css, look at the source for inspiration.
+Feel free to override the styling for the progress bars in s3-upnow_progress_bars.css, look at the source for inspiration.
 
 Also feel free to write your own js to interface with jquery-file-upload. You might want to do this to do custom validations on the files before it is sent to S3 for example.
-To do this remove `s3_direct_upload` from your application.js and include the necessary jquery-file-upload scripts in your asset pipeline (they are included in this gem automatically):
+To do this remove `s3-upnow` from your application.js and include the necessary jquery-file-upload scripts in your asset pipeline (they are included in this gem automatically):
 ```cofeescript
 #= require jquery-fileupload/basic
 #= require jquery-fileupload/vendor/tmpl
 ```
-Use the javascript in `s3_direct_upload` as a guide.
+Use the javascript in `s3-upnow` as a guide.
 
 
 ## Options for S3Upload jQuery Plugin
@@ -256,16 +256,16 @@ First, add the fog gem to your `Gemfile` and run `bundle`:
 
 Then, run the rake task to delete uploads older than 2 days:
 ```
-  $ rake s3_direct_upload:clean_remote_uploads
+  $ rake s3-upnow:clean_remote_uploads
   Deleted file with key: "uploads/20121210T2139Z_03846cb0329b6a8eba481ec689135701/06 - PCR_RYA014-25.jpg"
   Deleted file with key: "uploads/20121210T2139Z_03846cb0329b6a8eba481ec689135701/05 - PCR_RYA014-24.jpg"
   $
 ```
 
 Optionally customize the prefix used for cleaning (default is `uploads/#{2.days.ago.strftime('%Y%m%d')}`):
-**config/initalizers/s3_direct_upload.rb**
+**config/initalizers/s3-upnow.rb**
 ```ruby
-S3DirectUpload.config do |c|
+S3UpNow.config do |c|
   # ...
   c.prefix_to_clean = "my_path/#{1.week.ago.strftime('%y%m%d')}"
 end

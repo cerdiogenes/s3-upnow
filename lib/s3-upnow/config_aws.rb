@@ -1,6 +1,6 @@
 require "singleton"
 
-module S3DirectUpload
+module S3UpNow
   class Config
     include Singleton
 

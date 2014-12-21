@@ -1,12 +1,12 @@
-namespace :s3_direct_upload do
+namespace :'s3-upnow' do
   desc "Removes old uploads from specified s3 bucket/directory -- Useful when uploads are processed into another directory"
   task :clean_remote_uploads => :environment do
     require 'thread'
     require 'fog'
 
-    s3     = Fog::Storage.new(provider: "AWS", aws_access_key_id: S3DirectUpload.config.access_key_id, aws_secret_access_key: S3DirectUpload.config.secret_access_key)
-    bucket = S3DirectUpload.config.bucket
-    prefix = S3DirectUpload.config.prefix_to_clean || "uploads/#{2.days.ago.strftime('%Y%m%d')}"
+    s3     = Fog::Storage.new(provider: "AWS", aws_access_key_id: S3UpNow.config.access_key_id, aws_secret_access_key: S3UpNow.config.secret_access_key)
+    bucket = S3UpNow.config.bucket
+    prefix = S3UpNow.config.prefix_to_clean || "uploads/#{2.days.ago.strftime('%Y%m%d')}"
 
     queue         = Queue.new
     semaphore     = Mutex.new
