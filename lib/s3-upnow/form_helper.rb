@@ -1,5 +1,10 @@
 module S3UpNow
-  module UploadHelper
+  module UpNowHelper
+    def upnow_field(object_name, method, options = {})
+      hidden_field(object_name, :"#{method}_upnow_url", options.slice(:object)) +
+      file_field(object_name, method, options)
+    end
+
     def s3_uploader_form(options = {}, &block)
       uploader = S3Uploader.new(options)
       form_tag(uploader.url, uploader.form_options) do
@@ -92,6 +97,13 @@ module S3UpNow
           )
         ).gsub("\n", "")
       end
+    end
+  end
+
+  module UpNowFieldHelper
+    def upnow_field(method, options = {})
+      self.multipart = true
+      @template.upnow_field(@object_name, method, objectify_options(options))
     end
   end
 end
