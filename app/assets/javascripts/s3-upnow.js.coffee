@@ -3,12 +3,12 @@
 
 $ = jQuery
 
-$.fn.S3Uploader = (options) ->
+$.fn.S3UpNow = (options) ->
 
   # support multiple elements
   if @length > 1
     @each ->
-      $(this).S3Uploader options
+      $(this).S3UpNow options
 
     return this
 
