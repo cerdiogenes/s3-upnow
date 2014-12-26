@@ -23,6 +23,7 @@ $(document).on 'change', (e) ->
               .replace('{timestamp}', new Date().getTime())
               .replace('{unique_id}', file.unique_id)
           data.append(key, fields[key])
+      data.append('content-type', file.type)
       data.append('file', file)
 
       xhr = new XMLHttpRequest()
