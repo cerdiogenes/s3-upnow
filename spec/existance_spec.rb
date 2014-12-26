@@ -1,11 +1,11 @@
 require 'spec_helper'
 describe S3UpNow do
   it "version must be defined" do
-    S3UpNow::VERSION.should be_true
+    expect(S3UpNow::VERSION).to be
   end
 
   it "config must be defined" do
-    S3UpNow.config.should be_true
+    expect(S3UpNow.config).to be
   end
 
 end
