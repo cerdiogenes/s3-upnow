@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
+
 require File.expand_path('../lib/s3-upnow/version', __FILE__)
 
 Gem::Specification.new do |gem|

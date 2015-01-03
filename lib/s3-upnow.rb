@@ -9,3 +9,7 @@ require 's3-upnow/config_aws'
 require 's3-upnow/form_helper'
 require 's3-upnow/engine' if defined?(Rails)
 require 's3-upnow/railtie' if defined?(Rails)
+
+module S3UpNow
+  autoload :Paperclip, 's3-upnow/paperclip'
+end
