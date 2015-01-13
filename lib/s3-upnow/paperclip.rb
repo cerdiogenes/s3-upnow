@@ -26,7 +26,6 @@ module S3UpNow
 
   module ClassMethods
     def has_attached_file(name, options = {})
-      puts "here"
       self.class_eval do
         attr_accessor "#{name}_s3_key"
 
