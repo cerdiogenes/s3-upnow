@@ -52,6 +52,8 @@ module S3UpNow
           dest_bucket = s3.buckets[s3_upnow_destination_bucket(name)]
           dest_object = dest_bucket.objects[s3_upnow_destination_path(name)]
           dest_object.copy_from(orig_object, acl: s3_upnow_destination_permissions(name))
+          remove_instance_variable("@#{name}_s3_key")
+          s3_upnow_attachment(name).reprocess!
         end
       end
       super(name, options)
