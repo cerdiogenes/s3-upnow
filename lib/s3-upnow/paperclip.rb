@@ -10,7 +10,8 @@ module S3UpNow
         end
 
         def s3_upnow_destination_bucket(name)
-          s3_upnow_attachment(name).options[:bucket].call
+          attachment = s3_upnow_attachment(name)
+          attachment.options[:s3_credentials].try(:[], :bucket) || attachment.options[:bucket].call
         end
 
         def s3_upnow_destination_path(name)
