@@ -35,8 +35,13 @@ module S3UpNow
 
         private
 
+        def s3_upnow_client
+          endpoint = "#{S3UpNow.config.region ? S3UpNow.config.region : 's3'}.amazonaws.com"
+          AWS::S3.new(s3_endpoint: endpoint)
+        end
+
         define_method "s3_upnow_copy_metadata_from_#{name}" do
-          s3 = AWS::S3.new
+          s3 = s3_upnow_client
           s3_head = s3.buckets[S3UpNow.config.bucket].objects[instance_variable_get("@#{name}_s3_key")].head
 
           s3_upnow_attachment(name).clear
@@ -47,7 +52,7 @@ module S3UpNow
         end
 
         define_method "s3_upnow_copy_file_from_#{name}" do
-          s3 = AWS::S3.new
+          s3 = s3_upnow_client
           orig_bucket = s3.buckets[S3UpNow.config.bucket]
           orig_object = orig_bucket.objects[instance_variable_get("@#{name}_s3_key")]
           dest_bucket = s3.buckets[s3_upnow_destination_bucket(name)]
