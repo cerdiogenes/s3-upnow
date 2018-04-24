@@ -3,6 +3,10 @@ $(document).on 'change', (e) ->
   if (input.prop('tagName') == "INPUT" && input.prop('type') == "file" && input.data('upnow'))
     return if (!input.prop('files'))
     file = input.prop('files')[0]
+    max_file_size = Number(input.attr('max_file_size') || <%= 500.megabytes %>)
+    if Number(file.size) > max_file_size
+      alert("<%= I18n.t('s3_upnow.max_file_size') %>: #{max_file_size/1024/1024}mb")
+      return
     file.unique_id = Math.random().toString(36).substr(2,16)
 
     dispatchEvent = (name, detail) ->
