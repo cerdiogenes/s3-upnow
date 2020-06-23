@@ -30,8 +30,8 @@ module S3UpNow
       self.class_eval do
         attr_accessor "#{name}_s3_key"
 
-        before_validation "s3_upnow_copy_metadata_from_#{name}".to_sym, unless: "#{name}_s3_key.blank?"
-        after_save "s3_upnow_copy_file_from_#{name}".to_sym, unless: "#{name}_s3_key.blank?"
+        before_validation "s3_upnow_copy_metadata_from_#{name}".to_sym, unless: -> { send("#{name}_s3_key").blank? }
+        after_save "s3_upnow_copy_file_from_#{name}".to_sym, unless: -> { send("#{name}_s3_key").blank? }
 
         private
 
